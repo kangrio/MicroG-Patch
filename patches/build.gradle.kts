@@ -2,12 +2,31 @@ group = "app.revanced"
 
 patches {
     about {
-        name = "ReVanced Patches template"
-        description = "Patches template for ReVanced"
-        source = "git@github.com:revanced/revanced-patches-template.git"
-        author = "ReVanced"
-        contact = "contact@revanced.app"
-        website = "https://revanced.app"
+        name = "MicroG Patches"
+        description = "Patches for support MicroG"
+        source = "git@github.com:kangrio/MicroG-Patches.git"
+        author = "KangRio"
+        contact = "https://github.com/kangrio"
+        website = "https://github.com/kangrio"
         license = "GNU General Public License v3.0"
+    }
+}
+
+kotlin {
+    compilerOptions {
+        freeCompilerArgs = listOf("-Xcontext-receivers")
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/kangrio/MicroG-Patch")
+            credentials {
+                username = providers.gradleProperty("gpr.user").getOrElse(System.getenv("GITHUB_ACTOR"))
+                password = providers.gradleProperty("gpr.key").getOrElse(System.getenv("GITHUB_TOKEN"))
+            }
+        }
     }
 }
