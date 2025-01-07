@@ -1,3 +1,10 @@
+# 1.0.0 (2025-01-07)
+
+
+### Features
+
+* Support official Revance Manager or RVX Manager with alternative source (kangrio/MicroG-Patches-RE) ([3a5791c](https://github.com/kangrio/MicroG-Patches-Re/commit/3a5791c7d156d6396f8465dfa87c298170a22f83))
+
 ## [1.0.4](https://github.com/ReVanced/revanced-patches-template/compare/v1.0.3...v1.0.4) (2024-11-05)
 
 ## [1.0.4-dev.2](https://github.com/ReVanced/revanced-patches-template/compare/v1.0.4-dev.1...v1.0.4-dev.2) (2024-11-05)
