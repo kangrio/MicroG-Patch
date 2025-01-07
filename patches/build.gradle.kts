@@ -18,6 +18,10 @@ kotlin {
     }
 }
 
+dependencies{
+    implementation("com.android.tools.build:apksig:8.5.2")
+}
+
 publishing {
     repositories {
         maven {

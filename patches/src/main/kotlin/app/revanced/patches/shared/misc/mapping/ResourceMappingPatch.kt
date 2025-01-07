@@ -2,7 +2,13 @@ package app.revanced.patches.shared.misc.mapping
 
 import app.revanced.patcher.patch.PatchException
 import app.revanced.patcher.patch.resourcePatch
+import com.android.apksig.apk.ApkUtils
+import com.android.apksig.internal.apk.v2.V2SchemeVerifier
+import com.android.apksig.util.DataSources
+import com.android.apksig.util.RunnablesExecutor
 import org.w3c.dom.Element
+import java.io.File
+import java.io.RandomAccessFile
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -14,6 +20,13 @@ var appPackageName:String? = null
 
 var originalSignatrue:String? = null
     private set
+
+fun getSignatureBase64(apkFile: File): String{
+    val dataSource = DataSources.asDataSource(RandomAccessFile(apkFile.path, "r"))
+    val zipSections = ApkUtils.findZipSections(dataSource)
+    val v2 = V2SchemeVerifier.verify(RunnablesExecutor.SINGLE_THREADED, dataSource, zipSections, mapOf(2 to "APK Signature Scheme v2"), hashSetOf(2), 24, Int.MAX_VALUE)
+    return Base64.getEncoder().encodeToString(v2.signers[0].certs[0].encoded)
+}
 
 val resourceMappingPatch = resourcePatch {
     val resourceMappings = Collections.synchronizedList(mutableListOf<ResourceElement>())
@@ -27,7 +40,7 @@ val resourceMappingPatch = resourcePatch {
             appPackageName = manifest.getAttribute("package")
         }
 
-        originalSignatrue = get("../../signature.txt").readText().replace("\r\n", "\\n").replace("\n", "\\n")
+        originalSignatrue = getSignatureBase64(get("../../in.apk"))
 
         // Save the file in memory to concurrently read from it.
         val resourceXmlFile = get("res/values/public.xml").readBytes()

@@ -34,5 +34,6 @@ public final class app/revanced/patches/shared/misc/mapping/ResourceMappingPatch
 	public static final fun getOriginalSignatrue ()Ljava/lang/String;
 	public static final fun getResourceMappingPatch ()Lapp/revanced/patcher/patch/ResourcePatch;
 	public static final fun getResourceMappings ()Ljava/util/List;
+	public static final fun getSignatureBase64 (Ljava/io/File;)Ljava/lang/String;
 }
 

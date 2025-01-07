@@ -11,7 +11,7 @@ import app.revanced.patches.shared.misc.gms.microGSupportResourcePatch
 @Suppress("unused")
 val microGSupportPatch = bytecodePatch(
     name = "MicroG Support",
-    use = false,
+    use = true,
 ) {
     dependsOn(
         resourceMappingPatch,
